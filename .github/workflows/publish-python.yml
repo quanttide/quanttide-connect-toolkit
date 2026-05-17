@@ -4,6 +4,8 @@ on:
     types: [published]
 jobs:
   publish:
+    permissions:
+      id-token: write
     if: startsWith(github.ref, 'refs/tags/python/')
     runs-on: ubuntu-latest
     steps:
