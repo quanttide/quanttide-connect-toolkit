@@ -17,9 +17,9 @@ class TestConsensusService:
         assert self.repo.get_consensus(c.id) is not None
 
     def test_propose_with_related_messages(self) -> None:
-        from quanttide_connect.models import Message, Role
+        from quanttide_connect.models import Message, MessageType
 
-        msg = self.repo.add_message(Message(content="test", role=Role.user))
+        msg = self.repo.add_message(Message(content="test", type=MessageType.user))
         c = self.svc.propose("共识", [msg.id])
         rels = self.repo.get_relations_for_consensus(c.id)
         assert len(rels) == 1

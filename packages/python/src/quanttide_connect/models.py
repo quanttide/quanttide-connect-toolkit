@@ -21,7 +21,7 @@ def _new_id() -> str:
     return uuid.uuid4().hex
 
 
-class Role(str, Enum):
+class MessageType(str, Enum):
     user = "user"
     agent = "agent"
     system = "system"
@@ -32,7 +32,7 @@ class Message(BaseModel):
 
     id: str = Field(default_factory=_new_id)
     content: str
-    role: Role
+    type: MessageType
     created_at: datetime = Field(default_factory=_utcnow)
     updated_at: datetime | None = None
 

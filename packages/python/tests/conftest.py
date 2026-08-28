@@ -7,7 +7,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-from quanttide_connect.models import Consensus, ConsensusStatus, Message, Relation, Role
+from quanttide_connect.models import Consensus, ConsensusStatus, Message, Relation, MessageType
 from quanttide_connect.repository import Repository
 
 

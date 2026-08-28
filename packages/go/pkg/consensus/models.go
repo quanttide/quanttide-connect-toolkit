@@ -10,7 +10,7 @@ import "encoding/json"
 type Message struct {
 	ID        string `json:"id"`
 	Content   string `json:"content"`
-	Role      string `json:"role"`                // "user" / "agent" / "system"
+	Type      string `json:"type"`                // "user" / "agent" / "system"
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at,omitempty"`
 }

@@ -2,20 +2,20 @@
 
 from datetime import datetime
 
-from quanttide_connect.models import Consensus, ConsensusStatus, Message, Relation, Role
+from quanttide_connect.models import Consensus, ConsensusStatus, Message, Relation, MessageType
 
 
 class TestMessage:
     def test_create(self) -> None:
-        msg = Message(content="你好", role=Role.user)
+        msg = Message(content="你好", type=MessageType.user)
         assert msg.content == "你好"
-        assert msg.role == Role.user
+        assert msg.type == MessageType.user
         assert isinstance(msg.id, str)
         assert len(msg.id) == 32
         assert isinstance(msg.created_at, datetime)
 
     def test_updated_at_none_by_default(self) -> None:
-        msg = Message(content="test", role=Role.system)
+        msg = Message(content="test", type=MessageType.system)
         assert msg.updated_at is None
 
 

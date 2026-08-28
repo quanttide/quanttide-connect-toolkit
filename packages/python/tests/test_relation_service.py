@@ -1,6 +1,6 @@
 """测试关联服务。"""
 
-from quanttide_connect.models import Consensus, Message, Role
+from quanttide_connect.models import Consensus, Message, MessageType
 from quanttide_connect.services.relation import RelationService
 from tests.conftest import FakeRepository
 
@@ -9,7 +9,7 @@ class TestRelationService:
     def setup_method(self) -> None:
         self.repo = FakeRepository()
         self.svc = RelationService(self.repo)
-        self.msg = self.repo.add_message(Message(content="test", role=Role.user))
+        self.msg = self.repo.add_message(Message(content="test", type=MessageType.user))
         self.con = self.repo.add_consensus(Consensus(content="共识"))
 
     def test_link(self) -> None:
