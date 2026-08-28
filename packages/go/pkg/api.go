@@ -21,7 +21,7 @@ const (
 	RouteConsensusGraph   = "/consensus-graphs/{id}"
 
 	// 子资源路径。
-	RouteConsensusRelations      = "/consensuses/{id}/relations"
+	RouteConsensusRelationsList  = "/consensuses/{id}/relations"
 	RouteConsensusGraphNodes     = "/consensus-graphs/{id}/nodes"
 	RouteConsensusGraphNode      = "/consensus-graphs/{id}/nodes/{consensus_id}"
 	RouteConsensusGraphEdges     = "/consensus-graphs/{id}/edges"
@@ -47,7 +47,7 @@ func ConsensusRelationPath(id string) string { return fill(RouteConsensusRelatio
 func ConsensusGraphPath(id string) string { return fill(RouteConsensusGraph, "id", id) }
 
 // ConsensusRelationsPath 构造共识关系列表的路径。
-func ConsensusRelationsPath(id string) string { return fill(RouteConsensusRelations, "id", id) }
+func ConsensusRelationsPath(id string) string { return fill(RouteConsensusRelationsList, "id", id) }
 
 // ConsensusGraphNodesPath 构造共识图节点列表的路径。
 func ConsensusGraphNodesPath(id string) string { return fill(RouteConsensusGraphNodes, "id", id) }
