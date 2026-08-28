@@ -5,7 +5,7 @@
 ## 安装
 
 ```bash
-go get github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg
+go get github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg/consensus
 ```
 
 ## 使用
@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	connect "github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg"
+	consensus "github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg/consensus"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 		"created_at": "2026-08-28T14:30:00+08:00"
 	}`
 	
-	var c connect.Consensus
+	var c consensus.Consensus
 	if err := json.Unmarshal([]byte(consensusJSON), &c); err != nil {
 		panic(err)
 	}
@@ -49,18 +49,18 @@ package main
 import (
 	"fmt"
 
-	connect "github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg"
+	consensus "github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg/consensus"
 )
 
 func main() {
 	// 构造API路径
 	consensusID := "c0a80101-0000-0000-0000-000000000001"
-	path := connect.ConsensusPath(consensusID)
+	path := consensus.ConsensusPath(consensusID)
 	fmt.Printf("共识详情路径: %s\n", path)
 	
 	// 构造共识图节点路径
 	graphID := "g0a80101-0000-0000-0000-000000000001"
-	nodePath := connect.ConsensusGraphNodePath(graphID, consensusID)
+	nodePath := consensus.ConsensusGraphNodePath(graphID, consensusID)
 	fmt.Printf("共识图节点路径: %s\n", nodePath)
 }
 ```
@@ -74,18 +74,18 @@ import (
 	"encoding/json"
 	"fmt"
 
-	connect "github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg"
+	consensus "github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg/consensus"
 )
 
 func main() {
 	// 创建共识事件
-	event := connect.ConsensusCreatedEvent{
-		Event: connect.Event{
+	event := consensus.ConsensusCreatedEvent{
+		Event: consensus.Event{
 			EventID:   "e0a80101-0000-0000-0000-000000000001",
-			EventType: connect.EventConsensusCreated,
+			EventType: consensus.EventConsensusCreated,
 			Timestamp: "2026-08-28T14:30:00+08:00",
 		},
-		Data: connect.ConsensusCreatedData{
+		Data: consensus.ConsensusCreatedData{
 			ConsensusID: "c0a80101-0000-0000-0000-000000000001",
 			Title:       "共识是沟通管理领域的核心概念",
 			Description: "经过团队讨论，我们一致认为共识是沟通从分歧到统一的关键产出物。",
@@ -106,7 +106,6 @@ func main() {
 
 本包提供以下数据模型：
 
-- **Message**：消息，沟通的基本载体
 - **Consensus**：共识，团队成员通过讨论达成的一致决策或结论
 - **ConsensusRelation**：共识关系，建立共识之间的逻辑关联
 - **ConsensusGraph**：共识图，多个共识以 DAG 结构组织的集合
@@ -117,8 +116,8 @@ func main() {
 
 本包提供以下 API 路由常量和构造函数：
 
-- **静态资源集合路径**：`/messages`、`/consensuses`、`/consensus-relations`、`/consensus-graphs`
-- **单资源路径**：`/messages/{id}`、`/consensuses/{id}`、`/consensus-relations/{id}`、`/consensus-graphs/{id}`
+- **静态资源集合路径**：`/consensuses`、`/consensus-relations`、`/consensus-graphs`
+- **单资源路径**：`/consensuses/{id}`、`/consensus-relations/{id}`、`/consensus-graphs/{id}`
 - **子资源路径**：`/consensuses/{id}/relations`、`/consensus-graphs/{id}/nodes` 等
 
 所有路由定义以 `docs/specification/content/consensus.md` 的 API 规格为准。

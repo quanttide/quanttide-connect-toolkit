@@ -1,4 +1,4 @@
-package connect
+package consensus
 
 import "strings"
 

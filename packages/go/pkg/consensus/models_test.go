@@ -1,11 +1,11 @@
-package connect_test
+package consensus_test
 
 import (
 	"encoding/json"
 	"strings"
 	"testing"
 
-	connect "github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg"
+	consensus "github.com/quanttide/quanttide-connect-toolkit/packages/go/pkg/consensus"
 )
 
 // 共识标本：与 docs/specification/content/consensus.md 示例数据同构。
@@ -57,7 +57,7 @@ const consensusGraphTree = `{
 
 // TestConsensus_UnmarshalJSON 字段与 API 规格对齐（snake_case、omitempty 不回填零值）。
 func TestConsensus_UnmarshalJSON(t *testing.T) {
-	var c connect.Consensus
+	var c consensus.Consensus
 	if err := json.Unmarshal([]byte(consensusTree), &c); err != nil {
 		t.Fatalf("unmarshal: %v", err)
 	}
@@ -71,7 +71,7 @@ func TestConsensus_UnmarshalJSON(t *testing.T) {
 
 // TestConsensusRelation_UnmarshalJSON 字段与 API 规格对齐。
 func TestConsensusRelation_UnmarshalJSON(t *testing.T) {
-	var r connect.ConsensusRelation
+	var r consensus.ConsensusRelation
 	if err := json.Unmarshal([]byte(consensusRelationTree), &r); err != nil {
 		t.Fatalf("unmarshal: %v", err)
 	}
@@ -82,7 +82,7 @@ func TestConsensusRelation_UnmarshalJSON(t *testing.T) {
 
 // TestConsensusGraph_UnmarshalJSON 字段与 API 规格对齐。
 func TestConsensusGraph_UnmarshalJSON(t *testing.T) {
-	var g connect.ConsensusGraph
+	var g consensus.ConsensusGraph
 	if err := json.Unmarshal([]byte(consensusGraphTree), &g); err != nil {
 		t.Fatalf("unmarshal: %v", err)
 	}
@@ -102,7 +102,7 @@ func TestConsensusGraph_UnmarshalJSON(t *testing.T) {
 
 // TestConsensus_OmitZeroFields 零值字段不输出（omitempty 与 API 规格一致）。
 func TestConsensus_OmitZeroFields(t *testing.T) {
-	c := connect.Consensus{
+	c := consensus.Consensus{
 		ID:    "test-id",
 		Title: "测试共识",
 	}
@@ -120,7 +120,7 @@ func TestConsensus_OmitZeroFields(t *testing.T) {
 // TestParseConsensuses 解析共识列表。
 func TestParseConsensuses(t *testing.T) {
 	data := `[` + consensusTree + `]`
-	consensuses, err := connect.ParseConsensuses([]byte(data))
+	consensuses, err := consensus.ParseConsensuses([]byte(data))
 	if err != nil {
 		t.Fatalf("parse: %v", err)
 	}

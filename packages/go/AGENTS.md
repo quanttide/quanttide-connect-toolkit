@@ -10,10 +10,11 @@ packages/go/
 ├── README.md           # 项目说明
 ├── go.mod              # Go 模块定义
 └── pkg/                # 源代码
-    ├── models.go       # 数据模型定义
-    ├── api.go          # API 路由定义
-    ├── events.go       # 领域事件定义
-    └── models_test.go  # 模型测试
+    └── consensus/      # 共识子领域
+        ├── models.go       # 数据模型定义
+        ├── api.go          # API 路由定义
+        ├── events.go       # 领域事件定义
+        └── models_test.go  # 模型测试
 ```
 
 ## 事实源

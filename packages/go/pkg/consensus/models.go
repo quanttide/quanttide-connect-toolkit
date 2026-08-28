@@ -1,8 +1,8 @@
-// Package connect 提供沟通管理领域模型。
+// Package consensus 提供共识领域模型。
 //
 // 模型以 docs/specification/content/consensus.md 的领域模型定义为准，
 // JSON 标签与 API 规格字段一一对应，供各应用与工具复用。
-package connect
+package consensus
 
 import "encoding/json"
 

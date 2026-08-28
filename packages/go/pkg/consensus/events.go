@@ -1,4 +1,4 @@
-package connect
+package consensus
 
 // 领域事件类型常量（唯一事实源：docs/specification/content/consensus.md 领域事件）。
 const (
