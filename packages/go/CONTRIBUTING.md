@@ -1,0 +1,114 @@
+# CONTRIBUTING.md - quanttide-connect-toolkit Go 包
+
+仓库约定与常见任务的贡献指南。定位、结构与领域模型事实源见 [AGENTS.md](AGENTS.md)。
+
+## 发布标签规范（Go 包）
+
+本仓库所有发布标签遵循统一格式 `<scope>/vX.Y.Z`，如 `go/v0.1.0-alpha.2`、`dart/v0.1.1`。**主标签一律挂 GitHub Release**，作为人可读的版本事实源。
+
+### Go 包的双标签制
+
+Go 子目录模块（拥有独立 go.mod 的 `packages/go`）有社区硬性要求：标签必须包含完整子路径前缀，即 `packages/go/vX.Y.Z`——否则 `go get` 报 `invalid version: unknown revision`，无法拉取。
+
+为同时满足仓库统一惯例与 Go 工具链，Go 包发布时打**两条指向同一 commit 的标签**：
+
+| 标签 | 作用 | 是否挂 Release |
+|------|------|---------------|
+| `go/vX.Y.Z` | 主标签：人类惯例、CHANGELOG 版本头、GitHub Release | 是 |
+| `packages/go/vX.Y.Z` | 工具链别名：仅供 `go get` 解析 | 否 |
+
+示例（`packages/go` 发版）：
+
+```bash
+VERSION="v0.1.0-alpha.3"
+git tag "go/$VERSION"                       # 主标签 + GH Release
+git tag "packages/go/$VERSION"              # 工具链别名
+git push origin "go/$VERSION" "packages/go/$VERSION"
+gh release create "go/$VERSION" --prerelease ...
+```
+
+注意事项：
+
+- 别名标签是发布机制的机器侧产物：不设 Release、不出现在 CHANGELOG 版本头，也不要手工删除或移动；
+- 漏打别名标签时，包虽然"已发布"但实际不可被任何消费者获取（alpha.1 即此教训）；
+- 其余语言包（python/dart）不受此规则影响，只打主标签。
+
+## 版本号以契约测试为准
+
+`tests/` 的 Schema 与 Fixture 是各语言包版本的**客观依据**：一个语言包能否升版，看它是否已与当前契约体系对齐并通过契约测试。
+
+- 已落地契约测试并全绿的包（如 `go/`）：可按 semver 正常发版；
+- 契约测试挂起、模型未对齐契约体系的包（如迁移期的 python/dart）：只允许发 `alpha`/预览级版本，不得发正式版；
+- 契约变更（Schema/Fixture/路由）先行，各语言跟进后才能携带该变更进入新版本。
+
+## 提交规范
+
+遵循 Conventional Commits（`feat:` / `fix:` / `docs:` / `chore:` 等）；破坏性变更标 `!` 并在 body 说明迁移方式。
+
+## 子模块协作
+
+本仓库作为子模块挂载于 quanttide-connect 的 `packages/quanttide-connect-toolkit`：
+
+1. 在本仓库完成修改并提交推送；
+2. 回父仓库 `git add packages/quanttide-connect-toolkit && git commit` 更新引用指针并推送。
+
+## Go 包开发规范
+
+### 目录结构
+
+```
+packages/go/
+├── CONTRIBUTING.md      # 本文件
+├── AGENTS.md           # Agent 工作指南
+├── CHANGELOG.md        # 版本变更记录
+├── go.mod              # Go 模块定义
+├── go.sum              # 依赖校验
+├── src/                # 源代码
+│   ├── models/         # 数据模型
+│   ├── services/       # 业务逻辑
+│   └── events/         # 领域事件
+└── tests/              # 测试代码
+    ├── contract/       # 契约测试
+    └── unit/           # 单元测试
+```
+
+### 代码规范
+
+1. **命名规范**：遵循 Go 官方命名规范，使用驼峰命名法
+2. **注释规范**：所有公开函数和结构体必须有注释，遵循 Go Doc 规范
+3. **错误处理**：使用 Go 标准错误处理方式，返回 error 类型
+4. **测试规范**：所有公开函数必须有对应的单元测试
+
+### 依赖管理
+
+使用 Go Modules 管理依赖，确保 `go.mod` 和 `go.sum` 文件保持同步。
+
+### 契约测试
+
+契约测试是版本发布的客观依据，必须确保：
+
+1. 所有契约测试通过
+2. 数据模型与契约定义一致
+3. API 接口符合契约规范
+
+## 发布流程
+
+1. **代码审查**：确保代码符合规范，所有测试通过
+2. **契约验证**：运行契约测试，确保与契约体系对齐
+3. **版本更新**：更新 CHANGELOG.md 和 go.mod 中的版本号
+4. **标签创建**：创建主标签和工具链别名标签
+5. **发布执行**：推送标签，创建 GitHub Release
+
+## 常见问题
+
+### go get 报错 `invalid version: unknown revision`
+
+检查是否创建了工具链别名标签 `packages/go/vX.Y.Z`。
+
+### 契约测试失败
+
+检查数据模型是否与契约定义一致，参考 `tests/contract/` 中的测试用例。
+
+### 版本号不一致
+
+确保 CHANGELOG.md、go.mod 和 Git 标签中的版本号保持一致。
