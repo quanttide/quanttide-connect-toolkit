@@ -34,7 +34,7 @@ jobs:
           esac
 
           VERSION="${RELEASE_TAG#go/}"
-          grep -Fq "## [v$VERSION]" packages/go/CHANGELOG.md
+          grep -Fq "## [$VERSION]" packages/go/CHANGELOG.md
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "release_tag=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
 

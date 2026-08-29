@@ -64,5 +64,6 @@ jobs:
         env:
           PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
         run: |
+          test -n "$PUB_DEV_TOKEN" || { echo "PUB_DEV_TOKEN secret is required" >&2; exit 1; }
           dart pub token add https://pub.dev --env-var PUB_DEV_TOKEN
           dart pub publish --force
