@@ -10,7 +10,7 @@ class TestRelationService:
         self.repo = FakeRepository()
         self.svc = RelationService(self.repo)
         self.msg = self.repo.add_message(Message(content="test", type=MessageType.user))
-        self.con = self.repo.add_consensus(Consensus(content="共识"))
+        self.con = self.repo.add_consensus(Consensus(title="共识"))
 
     def test_link(self) -> None:
         r = self.svc.link(self.msg.id, self.con.id)

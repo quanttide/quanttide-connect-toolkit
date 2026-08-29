@@ -1,6 +1,9 @@
 .dart_tool/
 .packages
 build/
+target/
 pubspec.lock
 __pycache__/
 *.pyc
+dist/
+.venv/

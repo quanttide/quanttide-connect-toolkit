@@ -202,7 +202,8 @@ mod tests {
             data: ConsensusCreatedData {
                 consensus_id: "c0a80101-0000-0000-0000-000000000001".to_string(),
                 title: "共识是沟通管理领域的核心概念".to_string(),
-                description: "经过团队讨论，我们一致认为共识是沟通从分歧到统一的关键产出物。".to_string(),
+                description: "经过团队讨论，我们一致认为共识是沟通从分歧到统一的关键产出物。"
+                    .to_string(),
                 created_at: "2026-08-28T14:30:00+08:00".to_string(),
             },
         };

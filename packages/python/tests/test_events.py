@@ -1,6 +1,6 @@
 """测试事件总线。"""
 
-from quanttide_connect.events import DomainEvent, EventBus, EventHandler
+from quanttide_connect.events import DomainEvent, EventBus
 
 
 class _Handler:

@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from quanttide_connect.events import (
     ConsensusConfirmed,
@@ -17,7 +17,7 @@ from quanttide_connect.repository import Repository
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class ConsensusService:
@@ -28,9 +28,16 @@ class ConsensusService:
         self.event_bus = event_bus or EventBus()
 
     def propose(
-        self, content: str, related_message_ids: list[str] | None = None
+        self,
+        title: str,
+        description: str = "",
+        related_message_ids: list[str] | None = None,
     ) -> Consensus:
-        c = Consensus(content=content, status=ConsensusStatus.proposed)
+        c = Consensus(
+            title=title,
+            description=description,
+            status=ConsensusStatus.proposed,
+        )
         self.repository.add_consensus(c)
         related_message_ids = related_message_ids or []
         for mid in related_message_ids:
@@ -41,7 +48,8 @@ class ConsensusService:
         self.event_bus.publish(
             ConsensusProposed(
                 consensus_id=c.id,
-                content=c.content,
+                title=c.title,
+                description=c.description,
                 proposed_at=c.created_at,
                 related_message_ids=related_message_ids,
             )

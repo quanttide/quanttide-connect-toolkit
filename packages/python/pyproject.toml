@@ -1,6 +1,6 @@
 [project]
 name = "quanttide-connect"
-version = "0.1.0"
+version = "0.2.0"
 description = "沟通工程工具包（Python SDK）：人机沟通模型与共识管理"
 readme = "README.md"
 authors = [

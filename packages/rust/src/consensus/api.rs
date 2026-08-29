@@ -53,7 +53,11 @@ pub fn consensus_graph_nodes_path(id: &str) -> String {
 
 /// 构造共识图指定节点的路径。
 pub fn consensus_graph_node_path(id: &str, consensus_id: &str) -> String {
-    fill(&fill(ROUTE_CONSENSUS_GRAPH_NODE, "id", id), "consensus_id", consensus_id)
+    fill(
+        &fill(ROUTE_CONSENSUS_GRAPH_NODE, "id", id),
+        "consensus_id",
+        consensus_id,
+    )
 }
 
 /// 构造共识图边列表的路径。
@@ -63,7 +67,11 @@ pub fn consensus_graph_edges_path(id: &str) -> String {
 
 /// 构造共识图指定边的路径。
 pub fn consensus_graph_edge_path(id: &str, relation_id: &str) -> String {
-    fill(&fill(ROUTE_CONSENSUS_GRAPH_EDGE, "id", id), "relation_id", relation_id)
+    fill(
+        &fill(ROUTE_CONSENSUS_GRAPH_EDGE, "id", id),
+        "relation_id",
+        relation_id,
+    )
 }
 
 /// 构造共识图路径查询的路径。

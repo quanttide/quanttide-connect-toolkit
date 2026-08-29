@@ -11,8 +11,9 @@ class TestConsensusService:
         self.svc = ConsensusService(self.repo)
 
     def test_propose(self) -> None:
-        c = self.svc.propose("使用 PostgreSQL")
-        assert c.content == "使用 PostgreSQL"
+        c = self.svc.propose("使用 PostgreSQL", "作为生产环境数据库")
+        assert c.title == "使用 PostgreSQL"
+        assert c.description == "作为生产环境数据库"
         assert c.status == ConsensusStatus.proposed
         assert self.repo.get_consensus(c.id) is not None
 
@@ -20,7 +21,7 @@ class TestConsensusService:
         from quanttide_connect.models import Message, MessageType
 
         msg = self.repo.add_message(Message(content="test", type=MessageType.user))
-        c = self.svc.propose("共识", [msg.id])
+        c = self.svc.propose("共识", related_message_ids=[msg.id])
         rels = self.repo.get_relations_for_consensus(c.id)
         assert len(rels) == 1
         assert rels[0].message_id == msg.id
