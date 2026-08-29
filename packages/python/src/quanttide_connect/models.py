@@ -7,14 +7,14 @@
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _new_id() -> str:
@@ -46,9 +46,35 @@ class ConsensusStatus(str, Enum):
 class Consensus(BaseModel):
     """从消息中提炼出的共识。"""
 
+    model_config = ConfigDict(extra="forbid")
+
     id: str = Field(default_factory=_new_id)
-    content: str
+    title: str
+    description: str = ""
     status: ConsensusStatus = ConsensusStatus.proposed
+    created_at: datetime = Field(default_factory=_utcnow)
+    updated_at: datetime | None = None
+
+
+class ConsensusRelation(BaseModel):
+    """共识之间的逻辑关联。"""
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    id: str = Field(default_factory=_new_id)
+    from_id: str = Field(alias="from")
+    to: str
+    relation_type: str
+
+
+class ConsensusGraph(BaseModel):
+    """以有向图组织多个共识及其关系。"""
+
+    id: str = Field(default_factory=_new_id)
+    name: str
+    description: str = ""
+    nodes: list[Consensus] = Field(default_factory=list)
+    edges: list[ConsensusRelation] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=_utcnow)
     updated_at: datetime | None = None
 

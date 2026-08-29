@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.1.0] - 2026-08-29
+
+### Added
+
+- 发布正式版 Rust 工具包，提供共识模型、API 路由和领域事件定义。
+
+### Changed
+
+- 对齐工程标准 v0.1.1 的 `Consensus.title` / `Consensus.description` 字段。
+
 ## [v0.1.0-alpha.1] - 2026-08-28
 
 ### Added

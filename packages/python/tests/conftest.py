@@ -4,15 +4,14 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
-from quanttide_connect.models import Consensus, ConsensusStatus, Message, Relation, MessageType
-from quanttide_connect.repository import Repository
+from quanttide_connect.models import Consensus, ConsensusStatus, Message, Relation
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 class FakeRepository:

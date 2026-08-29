@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.1.0] - 2026-08-29
+
+### Added
+
+- 发布正式版 Go 工具包，提供 `pkg/consensus` 共识模型、API 路由和领域事件定义。
+
+### Changed
+
+- 以 `packages/go/v0.1.0` 作为 Go 工具链解析标签，`go/v0.1.0` 作为主发布标签。
+
 ## [v0.1.0-alpha.2] - 2026-08-28
 
 ### Changed

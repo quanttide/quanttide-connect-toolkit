@@ -11,6 +11,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: install uv
+        run: python -m pip install uv
+      - name: install dependencies
+        run: uv sync --directory packages/python --locked
+      - name: test
+        run: uv run --directory packages/python pytest
       - name: install build
         run: python -m pip install build --user
       - name: build

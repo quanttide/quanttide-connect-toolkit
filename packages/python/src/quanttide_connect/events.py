@@ -15,11 +15,11 @@ class DomainEvent:
 
 class MessageSent(DomainEvent):
     def __init__(
-        self, message_id: str, content: str, role: str, timestamp: datetime
+        self, message_id: str, content: str, type: str, timestamp: datetime
     ) -> None:
         self.message_id = message_id
         self.content = content
-        self.role = role
+        self.type = type
         self.timestamp = timestamp
 
 
@@ -34,12 +34,14 @@ class ConsensusProposed(DomainEvent):
     def __init__(
         self,
         consensus_id: str,
-        content: str,
+        title: str,
+        description: str,
         proposed_at: datetime,
         related_message_ids: list[str],
     ) -> None:
         self.consensus_id = consensus_id
-        self.content = content
+        self.title = title
+        self.description = description
         self.proposed_at = proposed_at
         self.related_message_ids = related_message_ids
 

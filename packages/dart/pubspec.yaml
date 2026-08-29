@@ -1,14 +1,11 @@
 name: quanttide_connect
-description: 量潮沟通工程Dart SDK
+description: 量潮沟通工程 Dart SDK
 version: 0.1.0
-homepage: https://github.com/quanttide/quanttide-platform
-repository: https://github.com/quanttide/quanttide-platform
+homepage: https://github.com/quanttide/quanttide-connect-toolkit
+repository: https://github.com/quanttide/quanttide-connect-toolkit
 
 environment:
   sdk: ^3.11.5
-
-dependencies:
-  bloc: ^9.0.0
 
 dev_dependencies:
   test: ^1.25.0

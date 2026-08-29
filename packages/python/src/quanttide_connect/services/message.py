@@ -4,15 +4,15 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from quanttide_connect.events import EventBus, MessageEdited, MessageSent
-from quanttide_connect.models import Message, Role
+from quanttide_connect.models import Message, MessageType
 from quanttide_connect.repository import Repository
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class MessageService:
@@ -22,14 +22,14 @@ class MessageService:
         self.repository = repository
         self.event_bus = event_bus or EventBus()
 
-    def send(self, content: str, role: Role) -> Message:
-        msg = Message(content=content, role=role)
+    def send(self, content: str, message_type: MessageType) -> Message:
+        msg = Message(content=content, type=message_type)
         self.repository.add_message(msg)
         self.event_bus.publish(
             MessageSent(
                 message_id=msg.id,
                 content=msg.content,
-                role=msg.role.value,
+                type=msg.type.value,
                 timestamp=msg.created_at,
             )
         )
