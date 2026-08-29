@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- 增加 Go 模块解析别名、Rust crates.io 和 Dart pub.dev 发布工作流，支持 tag 自动发布与手动补发。
+
 ## [2026-08-29]
 
 - Go 包准备发布 v0.1.0，保留 `go/v0.1.0` 与 `packages/go/v0.1.0` 双标签规则。
